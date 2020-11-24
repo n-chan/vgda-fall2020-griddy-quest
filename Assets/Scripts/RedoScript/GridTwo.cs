@@ -1,0 +1,258 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+
+public class GridTwo : MonoBehaviour
+{
+    public int count;
+    public enum PieceType {
+        EMPTY,
+        NORMAL,
+        BLOCK,
+        ROW_CLEAR,
+        COLUMN_CLEAR,
+        COUNT,
+    }
+
+    [System.Serializable]
+    public struct PiecePrefab {
+        public PieceType type;
+        public GameObject prefab;
+    }
+
+    public PiecePrefab[] piecePrefabs;
+    public GameObject backgroundPrefab;
+    private Dictionary<PieceType, GameObject> piecePrefabDict;
+
+    public int xDimension;
+    public int yDimension;
+    public float fillTime;
+
+    private GamePiece[,] pieces;
+
+    private GamePiece pressedPiece;
+    private GamePiece enteredPiece;
+
+    // Start is called before the first frame update
+    void Start() {
+        piecePrefabDict = new Dictionary<PieceType, GameObject>();
+        pieces = new GamePiece[xDimension, yDimension];
+
+        for (int i = 0; i < piecePrefabs.Length; i++) {
+            if (!piecePrefabDict.ContainsKey (piecePrefabs[i].type)) {
+                piecePrefabDict.Add(piecePrefabs[i].type, piecePrefabs[i].prefab);
+            }
+        }
+
+        for (int x = 0; x < xDimension; x++) {
+            for (int y = 0; y < yDimension; y++) {
+                GameObject background = (GameObject)Instantiate(backgroundPrefab, GetWorldPosition(x, y), Quaternion.identity);
+                background.transform.parent = transform;
+                SpawnNewPiece(x, y, PieceType.EMPTY);
+            }
+        }
+        
+        StartCoroutine(Fill());
+    }
+
+    public Vector3 GetWorldPosition(int x, int y) {
+        return new Vector3(transform.position.x - xDimension / 2.3f + x, transform.position.y + yDimension / 2.5f - y, 10);
+    }
+
+    public GamePiece SpawnNewPiece(int x, int y, PieceType pieceType) {
+        GameObject newPiece = (GameObject)Instantiate(piecePrefabDict[pieceType], GetWorldPosition(x, y), Quaternion.identity);
+        newPiece.transform.parent = transform;
+
+        pieces[x, y] = newPiece.GetComponent<GamePiece>();
+        pieces[x, y].Init(x, y, this, pieceType);
+
+        return pieces[x, y];
+    }
+
+    public IEnumerator Fill() {
+        bool needsRefill = true;
+        while(needsRefill) {
+            yield return new WaitForSeconds(fillTime + 0.5f);
+            int lvl = 0;
+            while (FillStep(lvl)) {
+                lvl += 1;
+                yield return new WaitForSeconds(fillTime);
+            }
+            needsRefill = ClearAllValidMatches();
+        }
+        /*
+        I could do something cool with this snippet of code:
+        Destroy(pieces[4, 4].gameObject);
+        GamePiece newPiece = SpawnNewPiece(4, 4, PieceType.ROW_CLEAR);
+        newPiece.GetFruitComponent().SetFruit(pieces[0, 2].GetFruitComponent().GetFruitType());
+        */
+    }
+
+    public bool FillStep(int lvl) {
+        bool movedPiece = false;
+        for (int y = yDimension - 2; y >= 0; y--) {
+            for (int x = 0; x < xDimension; x++) {
+                GamePiece piece = pieces[x, y];
+                if (piece.IsMovable()) {
+                    GamePiece pieceBelow = pieces[x, y + 1];
+                    if (pieceBelow.GetPieceType() == PieceType.EMPTY) {
+                        Destroy(pieceBelow.gameObject);
+                        piece.GetMoveableComponent().Move(x, y + 1, fillTime);
+                        piece.name = "Piece(" + x + ", " + y + ")";
+                        pieces[x, y + 1] = piece;
+                        SpawnNewPiece(x, y, PieceType.EMPTY);
+                        movedPiece = true;
+                    }
+                }
+            }
+        }
+
+        for (int x = 0; x < xDimension; x++) {
+            GamePiece pieceBelow = pieces[x, 0];
+            if (pieceBelow.GetPieceType() == PieceType.EMPTY) {
+                Destroy(pieceBelow.gameObject);
+                GameObject newPiece = (GameObject)Instantiate(piecePrefabDict[PieceType.NORMAL], GetWorldPosition(x, -1), Quaternion.identity);
+                newPiece.transform.parent = transform;
+
+                pieces[x, 0] = newPiece.GetComponent<GamePiece>();
+                pieces[x, 0].Init(x, -1, this, PieceType.NORMAL);
+                pieces[x, 0].GetMoveableComponent().Move(x, 0, fillTime);
+                do {
+                    pieces[x, 0].GetFruitComponent().SetFruit((FruitPiece.FruitType)Random.Range(0, pieces[x, 0].GetFruitComponent().GetNumFruits()));
+
+                } while (
+                    (x >= 2 && pieces[x, 0].GetFruitComponent().GetFruitType() == pieces[x - 1, 0].GetFruitComponent().GetFruitType()
+                            && pieces[x, 0].GetFruitComponent().GetFruitType() == pieces[x - 2, 0].GetFruitComponent().GetFruitType()) ||
+
+                    (lvl >= 2 && pieces[x, 0].GetFruitComponent().GetFruitType() == pieces[x, 1].GetFruitComponent().GetFruitType()
+                            && pieces[x, 0].GetFruitComponent().GetFruitType() == pieces[x, 2].GetFruitComponent().GetFruitType()));
+                movedPiece = true;
+            }
+        }
+        return movedPiece;
+    }
+
+    public bool IsAdjacent(GamePiece piece1, GamePiece piece2) {
+        return (piece1.GetX() == piece2.GetX() && (int)Mathf.Abs(piece1.GetY() - piece2.GetY()) == 1) ||
+            (piece1.GetY() == piece2.GetY() && (int)Mathf.Abs(piece1.GetX() - piece2.GetX()) == 1);
+    }
+
+    public void SwapPieces(GamePiece piece1, GamePiece piece2) {
+        if (piece1.IsMovable() && piece2.IsMovable()) {
+            pieces[piece1.GetX(), piece1.GetY()] = piece2;
+            pieces[piece2.GetX(), piece2.GetY()] = piece1;
+
+            if (CheckIfMatchesExist()) {
+                count += 1;
+                if (count == 3) {
+                    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
+                }
+                int piece1X = piece1.GetX();
+                int piece1Y = piece1.GetY();
+
+                piece1.GetMoveableComponent().Move(piece2.GetX(), piece2.GetY(), fillTime);
+                piece2.GetMoveableComponent().Move(piece1X, piece1Y, fillTime);
+
+                ClearAllValidMatches();
+
+                pressedPiece = null;
+                enteredPiece = null;
+
+                StartCoroutine(Fill());
+            }
+            else {
+                pieces[piece1.GetX(), piece1.GetY()] = piece1;
+                pieces[piece2.GetX(), piece2.GetY()] = piece2;
+            }
+        }
+    }
+
+    public void PressPiece(GamePiece piece) {
+        pressedPiece = piece;
+    }
+
+    public void EnterPiece(GamePiece piece) {
+        enteredPiece = piece;
+    }
+
+    public void ReleasePiece() {
+        if (IsAdjacent(pressedPiece, enteredPiece)) {
+            SwapPieces(pressedPiece, enteredPiece);
+        }   
+    }
+
+    
+    public bool CheckIfMatchesExist() {
+        for (int y = 0; y < yDimension; y++) {
+            for (int x = 0; x < xDimension; x++) {
+                if (x >= 2 && pieces[x, y].GetFruitComponent().GetFruitType() == pieces[(x - 1), y].GetFruitComponent().GetFruitType() &&
+                    pieces[(x - 1), y].GetFruitComponent().GetFruitType() == pieces[(x - 2), y].GetFruitComponent().GetFruitType()) {
+                    return true;
+                }
+                if (y >= 2 && pieces[x, y].GetFruitComponent().GetFruitType() == pieces[x, (y - 1)].GetFruitComponent().GetFruitType() &&
+                    pieces[x, (y - 1)].GetFruitComponent().GetFruitType() == pieces[x, (y - 2)].GetFruitComponent().GetFruitType()) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public List<GamePiece> FindMatchThrees() {
+        List<GamePiece> piecesToRemove = new List<GamePiece>();
+
+        for (int y = 0; y < yDimension; y++) {
+            for (int x = 0; x < xDimension; x++) {
+                if (x >= 2 && pieces[x, y].GetFruitComponent().GetFruitType() == pieces[(x - 1), y].GetFruitComponent().GetFruitType() &&
+                    pieces[(x - 1), y].GetFruitComponent().GetFruitType() == pieces[(x - 2), y].GetFruitComponent().GetFruitType()) {
+                    piecesToRemove.Add(pieces[x, y]);
+                    piecesToRemove.Add(pieces[(x-1), y]);
+                    piecesToRemove.Add(pieces[(x-2), y]);
+                }
+                if (y >= 2 && pieces[x, y].GetFruitComponent().GetFruitType() == pieces[x, (y - 1)].GetFruitComponent().GetFruitType() &&
+                    pieces[x, (y - 1)].GetFruitComponent().GetFruitType() == pieces[x, (y - 2)].GetFruitComponent().GetFruitType()) {
+                    piecesToRemove.Add(pieces[x, y]);
+                    piecesToRemove.Add(pieces[x, (y-1)]);
+                    piecesToRemove.Add(pieces[x, (y-2)]);
+                }
+            }
+        }
+        return piecesToRemove;
+    }
+    
+    public bool ClearAllValidMatches() {
+        bool needsRefill = false;
+        List<GamePiece> match = FindMatchThrees();
+        if (match != null) {
+            for (int i = 0; i < match.Count; i++) {
+                if (ClearPiece(match[i].GetX(), match[i].GetY())) {
+                    needsRefill = true;
+                }
+            }
+        }
+        return needsRefill;
+    }
+
+    public bool ClearPiece(int x, int y) {
+        if (pieces[x, y].IsClearable() && !pieces[x, y].GetClearableComponent().GetIsBeingCleared()) {
+            pieces[x, y].GetClearableComponent().Clear();
+            SpawnNewPiece(x, y, PieceType.EMPTY);
+
+            return true;
+        }
+        return false;
+    }
+
+    public void ClearRow(int row) {
+        for (int x = 0; x < xDimension; x++) {
+            ClearPiece(x, row);
+        }
+    }
+
+    public void ClearColumn(int col) {
+        for (int y = 0; y < yDimension; y++) {
+            ClearPiece(col, y);
+        }
+    }
+}
