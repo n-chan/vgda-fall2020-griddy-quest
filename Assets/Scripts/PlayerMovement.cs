@@ -16,7 +16,7 @@ public class PlayerMovement : MonoBehaviour
     private float leftOrRight;//if left neg if right pos
     private float timeInJump = 0f;
     private float maxJumpTime = 1.5f;//to chang how high or long person jumps chang this value and x or y
-    private float horizontalJump = 30;
+    private float horizontalJump = 25;
     private float verticalJump = 20;
 
     public bool isCaught;
@@ -64,7 +64,7 @@ public class PlayerMovement : MonoBehaviour
         else {
             change.x = Input.GetAxisRaw("Horizontal") * Time.deltaTime * speed + changeX;
             bool isMovingHorizontal = Mathf.Abs(Input.GetAxisRaw("Horizontal")) > 0.5f;
-            change.y = (Input.GetAxisRaw("Vertical") * Time.deltaTime * speed) + moveZ;
+            change.y = Input.GetAxisRaw("Vertical") * Time.deltaTime * speed + moveZ;
             bool isMovingVertical = Mathf.Abs(Input.GetAxisRaw("Vertical")) > 0.5f;
 
          
