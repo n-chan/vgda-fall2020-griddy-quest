@@ -134,7 +134,7 @@ GameObject:
   - component: {fileID: 57027925}
   - component: {fileID: 57027924}
   m_Layer: 5
-  m_Name: Button
+  m_Name: PheaButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -265,7 +265,7 @@ GameObject:
   - component: {fileID: 124876297}
   - component: {fileID: 124876296}
   m_Layer: 5
-  m_Name: Button
+  m_Name: KwesiButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -876,6 +876,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: d079f0b6a93436f45827e9f64aebe189, type: 2}
   - {fileID: 11400000, guid: 07c7cb0b38c5198448d694c053d49023, type: 2}
   - {fileID: 11400000, guid: 4f18ba41e4113eb4289a7ff6ed2ee98f, type: 2}
+  - {fileID: 11400000, guid: b029dce9366aa8049b59996ab9fc4e00, type: 2}
 --- !u!1 &1531676264
 GameObject:
   m_ObjectHideFlags: 0
@@ -1074,3 +1075,4 @@ MonoBehaviour:
   storedPlayerPortrait: {fileID: 11400000, guid: 89793d99e0ab8844a9cede8442cd94e3,
     type: 2}
   storedPlayerSprite: {fileID: 11400000, guid: 77491e61abe44924da5f55b30a5b0f69, type: 2}
+  unlockedPhea: {fileID: 11400000, guid: b029dce9366aa8049b59996ab9fc4e00, type: 2}

@@ -7,17 +7,26 @@ public class HealthManager : MonoBehaviour
 {
     public Text healthText;
     private float health;
+    private bool unlockedPhea;
+
     public FloatValue storedCharacterHealth;
     public GameObject characterPortraitBorder;
     public GameObject enemyPortraitBorder;
     public SpriteValue storedCharacterPortrait;
     public SpriteValue storedEnemyPortrait;
+    public BoolValue storedUnlockedPhea;
 
     // Start is called before the first frame update
     void Start()
     {
         healthText.text = storedCharacterHealth.RuntimeValue.ToString();
         health = storedCharacterHealth.RuntimeValue;
+
+        if (storedUnlockedPhea != null) {
+            unlockedPhea = storedUnlockedPhea.RuntimeValue;
+            GameObject.Find("CharacterScreenSwitchButton").GetComponent<Button>().interactable = unlockedPhea;
+        }
+
         if (characterPortraitBorder != null) {
             characterPortraitBorder.transform.Find("characterPortrait").GetComponent<SpriteRenderer>().sprite = storedCharacterPortrait.RuntimeValue;
         }

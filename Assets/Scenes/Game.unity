@@ -8250,6 +8250,12 @@ PrefabInstance:
       propertyPath: healthText
       value: 
       objectReference: {fileID: 1659552489}
+    - target: {fileID: 1846357770983914626, guid: 26feac241ca98364c8d57d8484c002dc,
+        type: 3}
+      propertyPath: storedUnlockedPhea
+      value: 
+      objectReference: {fileID: 11400000, guid: b029dce9366aa8049b59996ab9fc4e00,
+        type: 2}
     - target: {fileID: 1846357770983914627, guid: 26feac241ca98364c8d57d8484c002dc,
         type: 3}
       propertyPath: m_Name

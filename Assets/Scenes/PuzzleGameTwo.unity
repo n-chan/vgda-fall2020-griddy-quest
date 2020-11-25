@@ -691,6 +691,7 @@ MonoBehaviour:
     type: 2}
   storedEnemyPortrait: {fileID: 11400000, guid: 4f18ba41e4113eb4289a7ff6ed2ee98f,
     type: 2}
+  storedUnlockedPhea: {fileID: 0}
 --- !u!1 &1846357772064839151
 GameObject:
   m_ObjectHideFlags: 0
