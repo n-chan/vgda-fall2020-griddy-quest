@@ -272,13 +272,11 @@ MonoBehaviour:
   dialogue:
     name: 
     sentences:
-    - Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec facilisis odio
-      id dolor laoreet volutpat. Donec erat purus, condimentum non dui nec, efficitur
-      ullamcorper elit.
-    - Donec tincidunt lorem eget tempor finibus. Donec molestie magna ultricies ligula
-      vestibulum mattis. In auctor eget metus nec egestas.
-    - Nullam consequat leo ac suscipit ultrices. Aliquam aliquet rhoncus ligula,
-      vitae semper massa volutpat ac.
+    - Our story begins in the town of Lagos, home to a young knight named Kwesi.
+    - 'One fateful morning, Kwesi wakes up with alarming reports of missing villagers. '
+    - Hoping to get to the bottom of this, the young knight sets off to investigate.
+    - He soon himself in the Forest of Eulago where things are not as they seem to
+      be...
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
