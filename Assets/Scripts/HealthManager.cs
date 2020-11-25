@@ -7,7 +7,6 @@ public class HealthManager : MonoBehaviour
 {
     public Text healthText;
     private float health;
-    private bool unlockedPhea;
 
     public FloatValue storedCharacterHealth;
     public GameObject characterPortraitBorder;
@@ -21,12 +20,6 @@ public class HealthManager : MonoBehaviour
     {
         healthText.text = storedCharacterHealth.RuntimeValue.ToString();
         health = storedCharacterHealth.RuntimeValue;
-
-        if (storedUnlockedPhea != null) {
-            unlockedPhea = storedUnlockedPhea.RuntimeValue;
-            GameObject.Find("CharacterScreenSwitchButton").GetComponent<Button>().interactable = unlockedPhea;
-        }
-
         if (characterPortraitBorder != null) {
             characterPortraitBorder.transform.Find("characterPortrait").GetComponent<SpriteRenderer>().sprite = storedCharacterPortrait.RuntimeValue;
         }
@@ -41,5 +34,11 @@ public class HealthManager : MonoBehaviour
         if (health != storedCharacterHealth.RuntimeValue) {
             healthText.text = storedCharacterHealth.RuntimeValue.ToString();
         }
+
+        //TODO: Make this better.
+        if (GameObject.Find("CharacterScreenSwitchButton") != null) {
+            GameObject.Find("CharacterScreenSwitchButton").GetComponent<Button>().interactable = storedUnlockedPhea.RuntimeValue;
+        }
+        
     }
 }

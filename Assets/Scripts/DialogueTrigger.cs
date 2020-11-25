@@ -14,6 +14,6 @@ public class DialogueTrigger : MonoBehaviour
 
     IEnumerator LateStart(float waitTime) {
         yield return new WaitForSeconds(waitTime);
-        FindObjectOfType<DialogueManager>().StartDialogue(dialogue);
+        FindObjectOfType<DialogueManager>().StartDialogue(dialogue, true);
     }
 }

@@ -9,6 +9,7 @@ public class DialogueManager : MonoBehaviour
     public Text nameText;
     public Text dialogueText;
     public LevelLoader loader;
+    private bool isSceneChanger;
 
     public Animator animator;
 
@@ -22,8 +23,9 @@ public class DialogueManager : MonoBehaviour
         //StartDialogue(dialogue);
     }
 
-    public void StartDialogue(Dialogue dialogue) {
+    public void StartDialogue(Dialogue dialogue, bool sc) {
         Debug.Log("Starting conversation...");
+        isSceneChanger = sc;
 
         if (nameText != null) {
             nameText.text = dialogue.name;
@@ -63,7 +65,9 @@ public class DialogueManager : MonoBehaviour
         Debug.Log("End of conversation.");
         animator.SetBool("IsOpen", false);
 
-        loader.LoadNextLevel();
+        if (isSceneChanger) {
+            loader.LoadNextLevel();
+        }
         //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
 
     }

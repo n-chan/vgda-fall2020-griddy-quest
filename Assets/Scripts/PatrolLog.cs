@@ -68,7 +68,7 @@ public class PatrolLog : Log
                     isDead = true;
                     storedDead.RuntimeValue = isDead;
                     storedEnemyPortrait.RuntimeValue = enemyPortrait;
-                    FindObjectOfType<DialogueManager>().StartDialogue(dialogue);
+                    FindObjectOfType<DialogueManager>().StartDialogue(dialogue, true);
                     dialogueStarted = true;
                 }
                 
