@@ -26,7 +26,7 @@ public class LevelLoader : MonoBehaviour
     }
 
     public void LoadSpecificLevel(int index) {
-        StartCoroutine(LoadLevel(1));
+        StartCoroutine(LoadLevel(index));
     }
 
     IEnumerator LoadLevel(int levelIndex)

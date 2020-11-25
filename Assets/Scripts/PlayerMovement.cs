@@ -137,4 +137,7 @@ public class PlayerMovement : MonoBehaviour
         startingPosition.RuntimeValue = transform.position;
     }
 
+    public void ResetPosition() {
+        transform.position = startingPosition.initialValue;
+    }
 }
