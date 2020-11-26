@@ -275,8 +275,8 @@ MonoBehaviour:
     - Our story begins in the town of Lagos, home to a young knight named Kwesi.
     - 'One fateful morning, Kwesi wakes up with alarming reports of missing villagers. '
     - Hoping to get to the bottom of this, the young knight sets off to investigate.
-    - He soon himself in the Forest of Eulago where things are not as they seem to
-      be...
+    - He soon finds himself in the Forest of Eulago where things are not as they
+      seem to be...
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0

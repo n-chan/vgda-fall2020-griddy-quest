@@ -9,12 +9,7 @@ public class PatrolLog : Log
     public int currentPoint;
     public Transform currentGoal;
     public float roundingDistance;
-    public Dialogue dialogue;
     private bool dialogueStarted = false;
-    public bool isDead;
-    public BoolValue storedDead;
-    public Sprite enemyPortrait;
-    public SpriteValue storedEnemyPortrait;
 
     private bool caughtPlayer = false;
 
