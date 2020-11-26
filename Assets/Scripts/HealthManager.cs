@@ -18,8 +18,12 @@ public class HealthManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        healthText.text = storedCharacterHealth.RuntimeValue.ToString();
-        health = storedCharacterHealth.RuntimeValue;
+        Debug.Log(storedCharacterHealth.RuntimeValue);
+        if (healthText!= null) {
+            healthText.text = "Moves Remaining:\n" + storedCharacterHealth.RuntimeValue.ToString();
+            health = storedCharacterHealth.RuntimeValue;
+        }
+
         if (characterPortraitBorder != null) {
             characterPortraitBorder.transform.Find("characterPortrait").GetComponent<SpriteRenderer>().sprite = storedCharacterPortrait.RuntimeValue;
         }
@@ -31,8 +35,8 @@ public class HealthManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (health != storedCharacterHealth.RuntimeValue) {
-            healthText.text = storedCharacterHealth.RuntimeValue.ToString();
+        if (healthText != null && health != storedCharacterHealth.RuntimeValue) {
+            healthText.text = "Moves Remaining:\n" + storedCharacterHealth.RuntimeValue.ToString();
         }
 
         //TODO: Make this better.

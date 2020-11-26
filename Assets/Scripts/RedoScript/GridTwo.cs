@@ -6,6 +6,9 @@ using UnityEngine.SceneManagement;
 public class GridTwo : MonoBehaviour
 {
     public int count;
+    public bool isClearing = false;
+    private bool gameOver = false;
+
     public enum PieceType {
         EMPTY,
         NORMAL,
@@ -28,6 +31,7 @@ public class GridTwo : MonoBehaviour
     public int xDimension;
     public int yDimension;
     public float fillTime;
+    public Level level;
 
     private GamePiece[,] pieces;
 
@@ -81,6 +85,7 @@ public class GridTwo : MonoBehaviour
             }
             needsRefill = ClearAllValidMatches();
         }
+        isClearing = false;
         /*
         I could do something cool with this snippet of code:
         Destroy(pieces[4, 4].gameObject);
@@ -139,15 +144,22 @@ public class GridTwo : MonoBehaviour
     }
 
     public void SwapPieces(GamePiece piece1, GamePiece piece2) {
+        if (gameOver) {
+            return;
+        }
+
         if (piece1.IsMovable() && piece2.IsMovable()) {
             pieces[piece1.GetX(), piece1.GetY()] = piece2;
             pieces[piece2.GetX(), piece2.GetY()] = piece1;
 
             if (CheckIfMatchesExist()) {
+                isClearing = true;
                 count += 1;
+                /*
                 if (count == 3) {
                     SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
                 }
+                */
                 int piece1X = piece1.GetX();
                 int piece1Y = piece1.GetY();
 
@@ -160,12 +172,14 @@ public class GridTwo : MonoBehaviour
                 enteredPiece = null;
 
                 StartCoroutine(Fill());
+                level.OnMove();
             }
             else {
                 pieces[piece1.GetX(), piece1.GetY()] = piece1;
                 pieces[piece2.GetX(), piece2.GetY()] = piece2;
             }
         }
+        
     }
 
     public void PressPiece(GamePiece piece) {
@@ -174,10 +188,11 @@ public class GridTwo : MonoBehaviour
 
     public void EnterPiece(GamePiece piece) {
         enteredPiece = piece;
+
     }
 
     public void ReleasePiece() {
-        if (IsAdjacent(pressedPiece, enteredPiece)) {
+        if (!isClearing && IsAdjacent(pressedPiece, enteredPiece)) {
             SwapPieces(pressedPiece, enteredPiece);
         }   
     }
@@ -196,6 +211,7 @@ public class GridTwo : MonoBehaviour
                 }
             }
         }
+
         return false;
     }
 
@@ -254,5 +270,9 @@ public class GridTwo : MonoBehaviour
         for (int y = 0; y < yDimension; y++) {
             ClearPiece(col, y);
         }
+    }
+
+    public void GameOver() {
+        gameOver = true;
     }
 }

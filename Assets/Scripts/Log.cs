@@ -16,6 +16,7 @@ public class Log : Enemy
     public BoolValue storedDead;
     public Sprite enemyPortrait;
     public SpriteValue storedEnemyPortrait;
+    public FloatValue storedEnemyHealth;
     private bool dialogueStarted = false;
 
     // Start is called before the first frame update
@@ -51,6 +52,7 @@ public class Log : Enemy
                 isDead = true;
                 storedDead.RuntimeValue = isDead;
                 storedEnemyPortrait.RuntimeValue = enemyPortrait;
+                storedEnemyHealth.RuntimeValue = 30;
                 FindObjectOfType<DialogueManager>().StartDialogue(dialogue, true);
                 dialogueStarted = true;
             }
