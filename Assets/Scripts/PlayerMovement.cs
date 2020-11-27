@@ -23,6 +23,7 @@ public class PlayerMovement : MonoBehaviour
     public float moveZ;
     public VectorValue startingPosition;
     public SpriteValue characterSprite;
+    public FloatValue characterNum;
 
     private bool wasMovingVertical;
 
@@ -46,15 +47,12 @@ public class PlayerMovement : MonoBehaviour
         else {
             transform.position = startingPosition.initialValue;
         }
-        
     }
 
     // Update is called once per frame
     void Update()
     {
         //change = Vector3.zero;
-        
-
         if (isCaught) {
             change.x = 0;
             change.y = 0;
@@ -84,7 +82,8 @@ public class PlayerMovement : MonoBehaviour
             }
 
             change.z = moveZ;
-            if (Input.GetKeyDown("space")) {
+            Debug.Log(characterNum.RuntimeValue);
+            if (characterNum.RuntimeValue == 1 && Input.GetKeyDown("space")) {
                 Jump();
                 if ( change.x != 0)//if player was moving before jump
                 {
@@ -108,8 +107,6 @@ public class PlayerMovement : MonoBehaviour
                 moveZ = -verticalJump;
                 change.z = moveZ;
                 timeInJump = 0f;
-                
-                // aaa
             }
             else if (Jumped == false && timeInJump > maxJumpTime) {
                 moveZ = 0;

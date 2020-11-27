@@ -8,6 +8,7 @@ public class GridTwo : MonoBehaviour
     public int count;
     public bool isClearing = false;
     private bool gameOver = false;
+    public FloatValue storedCharacterNum;
 
     public enum PieceType {
         EMPTY,
@@ -75,6 +76,7 @@ public class GridTwo : MonoBehaviour
     }
 
     public IEnumerator Fill() {
+        isClearing = true;
         bool needsRefill = true;
         while(needsRefill) {
             yield return new WaitForSeconds(fillTime + 0.5f);
@@ -83,7 +85,22 @@ public class GridTwo : MonoBehaviour
                 lvl += 1;
                 yield return new WaitForSeconds(fillTime);
             }
-            needsRefill = ClearAllValidMatches();
+
+            int randNum = Random.Range(1, 5);
+            if (storedCharacterNum.RuntimeValue == 0 && randNum == 1) {
+                int spawnAtX = Random.Range(0, 8);
+                int spawnAtY = Random.Range(0, 8);
+
+                GamePiece temp = pieces[spawnAtX, spawnAtY];
+                Destroy(pieces[spawnAtX, spawnAtY].gameObject);
+                randNum = Random.Range(0, 2);
+                GamePiece newPiece = SpawnNewPiece(spawnAtX, spawnAtY, (randNum == 0) ? PieceType.ROW_CLEAR : PieceType.COLUMN_CLEAR);
+                newPiece.GetFruitComponent().SetFruit(temp.GetFruitComponent().GetFruitType());
+                needsRefill = ClearAllValidMatches();
+            }
+            else {
+                needsRefill = ClearAllValidMatches();
+            }
         }
         isClearing = false;
         /*
@@ -92,6 +109,8 @@ public class GridTwo : MonoBehaviour
         GamePiece newPiece = SpawnNewPiece(4, 4, PieceType.ROW_CLEAR);
         newPiece.GetFruitComponent().SetFruit(pieces[0, 2].GetFruitComponent().GetFruitType());
         */
+
+        level.OnMove();
     }
 
     public bool FillStep(int lvl) {
@@ -153,7 +172,7 @@ public class GridTwo : MonoBehaviour
             pieces[piece2.GetX(), piece2.GetY()] = piece1;
 
             if (CheckIfMatchesExist()) {
-                isClearing = true;
+                //isClearing = true;
                 count += 1;
                 /*
                 if (count == 3) {
@@ -172,7 +191,6 @@ public class GridTwo : MonoBehaviour
                 enteredPiece = null;
 
                 StartCoroutine(Fill());
-                level.OnMove();
             }
             else {
                 pieces[piece1.GetX(), piece1.GetY()] = piece1;

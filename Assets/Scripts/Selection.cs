@@ -9,6 +9,7 @@ public class Selection : MonoBehaviour
     public SpriteValue storedPlayerPortrait;
     public SpriteValue storedPlayerSprite;
     public BoolValue unlockedPhea;
+    public FloatValue storedCharacterNum;
 
     void Start() {
         GameObject.Find("PheaButton").GetComponent<Button>().interactable = unlockedPhea.RuntimeValue;
@@ -18,5 +19,9 @@ public class Selection : MonoBehaviour
         storedPlayerPortrait.RuntimeValue = btn.transform.Find("CharacterPortraitSaver").GetComponent<SpriteRenderer>().sprite;
         storedPlayerSprite.RuntimeValue = btn.transform.Find("CharacterSpriteSaver").GetComponent<SpriteRenderer>().sprite;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+    }
+
+    public void SetCharacterNum(float i) {
+        storedCharacterNum.RuntimeValue = i;
     }
 }

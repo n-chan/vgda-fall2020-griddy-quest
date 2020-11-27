@@ -23,6 +23,8 @@ public class Level : MonoBehaviour
     public Text enemyHealthText;
     public Text outcomeText;
 
+    bool firstFill = true;
+
     public LevelType getLevelType() {
         return type;
     }
@@ -68,9 +70,17 @@ public class Level : MonoBehaviour
         }
     }
     public void OnMove() {
-        storedNumMoves.RuntimeValue -= 1;
-
-        if (storedNumMoves.RuntimeValue == 0) {
+        if (!firstFill) {
+            storedNumMoves.RuntimeValue -= 1;
+        }
+        else {
+            firstFill = false;
+        }
+        
+        if (currentScore >= targetScore) {
+            GameWin();
+        }
+        else if (storedNumMoves.RuntimeValue == 0) {
             if (currentScore >= targetScore) {
                 GameWin();
             }
@@ -83,8 +93,6 @@ public class Level : MonoBehaviour
         currentScore += piece.score;
         currentScoreText.text = "Tiles Collected:\n" + currentScore.ToString();
         Debug.Log("Score: " + currentScore);
-        if (currentScore >= targetScore) {
-            GameWin();
-        }
+
     }
 }

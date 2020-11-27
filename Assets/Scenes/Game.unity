@@ -11774,6 +11774,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 81ff35889308d0049b9e17fdf9cfa2f1,
         type: 2}
+    - target: {fileID: 6079607517297185317, guid: ea9803dcaed3530498b11c9a65291f13,
+        type: 3}
+      propertyPath: attackRadius
+      value: 2.1
+      objectReference: {fileID: 0}
     - target: {fileID: 6939969491081339290, guid: ea9803dcaed3530498b11c9a65291f13,
         type: 3}
       propertyPath: m_Name
@@ -12795,6 +12800,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 81ff35889308d0049b9e17fdf9cfa2f1,
         type: 2}
+    - target: {fileID: 6079607517297185317, guid: ea9803dcaed3530498b11c9a65291f13,
+        type: 3}
+      propertyPath: attackRadius
+      value: 2.1
+      objectReference: {fileID: 0}
     - target: {fileID: 6939969491081339290, guid: ea9803dcaed3530498b11c9a65291f13,
         type: 3}
       propertyPath: m_Name
@@ -18534,6 +18544,12 @@ PrefabInstance:
       propertyPath: speed
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 4654490931578787090, guid: a55623212b292a84a8ff7082d35b698e,
+        type: 3}
+      propertyPath: characterNum
+      value: 
+      objectReference: {fileID: 11400000, guid: bf289429ddfd5bf4793cd57f824f6247,
+        type: 2}
     - target: {fileID: 4654490931578787091, guid: a55623212b292a84a8ff7082d35b698e,
         type: 3}
       propertyPath: m_LocalPosition.x
