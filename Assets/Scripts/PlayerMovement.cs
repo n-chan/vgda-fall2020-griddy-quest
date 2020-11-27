@@ -27,12 +27,18 @@ public class PlayerMovement : MonoBehaviour
 
     private bool wasMovingVertical;
 
+    bool isMoving = false;
+
+    public AudioSource audioSrc;
+
     //public FloatValue currentHealth;
 
     // Start is called before the first frame update
     void Start()
     {
         myRigidbody = GetComponent<Rigidbody2D>();
+        audioSrc = GetComponent<AudioSource>();
+
         isCaught = false;
         if (GetComponent<SpriteRenderer>().sprite != characterSprite.RuntimeValue) {
             GetComponent<SpriteRenderer>().sprite = characterSprite.RuntimeValue;
@@ -52,6 +58,22 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //This is for footstep sounds...
+        if (change.x != 0 || change.y != 0) {
+            isMoving = true;
+        }
+        else {
+            isMoving = false;
+        }
+        if (isMoving) {
+            if (!audioSrc.isPlaying) {
+                audioSrc.Play();
+            }
+        }
+        else {
+            audioSrc.Stop();
+        }
+
         //change = Vector3.zero;
         if (isCaught) {
             change.x = 0;
@@ -65,7 +87,6 @@ public class PlayerMovement : MonoBehaviour
             change.y = Input.GetAxisRaw("Vertical") * Time.deltaTime * speed + moveZ;
             bool isMovingVertical = Mathf.Abs(Input.GetAxisRaw("Vertical")) > 0.5f;
 
-         
             if (isMovingVertical && isMovingHorizontal) {
                 if (wasMovingVertical) {
                     change.y = 0;
@@ -82,7 +103,6 @@ public class PlayerMovement : MonoBehaviour
             }
 
             change.z = moveZ;
-            Debug.Log(characterNum.RuntimeValue);
             if (characterNum.RuntimeValue == 1 && Input.GetKeyDown("space")) {
                 Jump();
                 if ( change.x != 0)//if player was moving before jump

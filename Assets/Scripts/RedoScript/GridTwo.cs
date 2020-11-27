@@ -39,6 +39,9 @@ public class GridTwo : MonoBehaviour
     private GamePiece pressedPiece;
     private GamePiece enteredPiece;
 
+    public AudioSource audioSrc;
+    public AudioClip clearSound, swapSound;
+
     // Start is called before the first frame update
     void Start() {
         piecePrefabDict = new Dictionary<PieceType, GameObject>();
@@ -212,6 +215,7 @@ public class GridTwo : MonoBehaviour
     public void ReleasePiece() {
         if (!isClearing && IsAdjacent(pressedPiece, enteredPiece)) {
             SwapPieces(pressedPiece, enteredPiece);
+            audioSrc.PlayOneShot(swapSound);
         }   
     }
 
@@ -243,12 +247,14 @@ public class GridTwo : MonoBehaviour
                     piecesToRemove.Add(pieces[x, y]);
                     piecesToRemove.Add(pieces[(x-1), y]);
                     piecesToRemove.Add(pieces[(x-2), y]);
+                    audioSrc.PlayOneShot(clearSound);
                 }
                 if (y >= 2 && pieces[x, y].GetFruitComponent().GetFruitType() == pieces[x, (y - 1)].GetFruitComponent().GetFruitType() &&
                     pieces[x, (y - 1)].GetFruitComponent().GetFruitType() == pieces[x, (y - 2)].GetFruitComponent().GetFruitType()) {
                     piecesToRemove.Add(pieces[x, y]);
                     piecesToRemove.Add(pieces[x, (y-1)]);
                     piecesToRemove.Add(pieces[x, (y-2)]);
+                    audioSrc.PlayOneShot(clearSound);
                 }
             }
         }

@@ -17,7 +17,7 @@ public class Log : Enemy
     public Sprite enemyPortrait;
     public SpriteValue storedEnemyPortrait;
     public FloatValue storedEnemyHealth;
-    private bool dialogueStarted = false;
+    public bool dialogueStarted = false;
 
     // Start is called before the first frame update
     void Start()

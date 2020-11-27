@@ -9,7 +9,6 @@ public class PatrolLog : Log
     public int currentPoint;
     public Transform currentGoal;
     public float roundingDistance;
-    private bool dialogueStarted = false;
 
     private bool caughtPlayer = false;
 
