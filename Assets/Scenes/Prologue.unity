@@ -277,6 +277,7 @@ MonoBehaviour:
     - Hoping to get to the bottom of this, the young knight sets off to investigate.
     - He soon finds himself in the Forest of Eulago where things are not as they
       seem to be...
+    - WASD to move. E to interact.
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0

@@ -11986,11 +11986,11 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: dbe4405baeea2404ba3d422430b5fd3b, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 98e005e2d5100484b88927d0803cb395, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.25
   m_Pitch: 1
-  Loop: 1
+  Loop: 0
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -18038,6 +18038,7 @@ MonoBehaviour:
   storedEnemyPortrait: {fileID: 11400000, guid: 4f18ba41e4113eb4289a7ff6ed2ee98f,
     type: 2}
   storedEnemyHealth: {fileID: 11400000, guid: 81ff35889308d0049b9e17fdf9cfa2f1, type: 2}
+  dialogueStarted: 0
 --- !u!1001 &1515452785
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -18192,6 +18193,7 @@ MonoBehaviour:
   storedEnemyPortrait: {fileID: 11400000, guid: 4f18ba41e4113eb4289a7ff6ed2ee98f,
     type: 2}
   storedEnemyHealth: {fileID: 11400000, guid: 81ff35889308d0049b9e17fdf9cfa2f1, type: 2}
+  dialogueStarted: 0
 --- !u!1 &1576339243 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8932934829447156527, guid: aeb3254210118e94ca0b24e1385715c8,
