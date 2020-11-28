@@ -77,13 +77,7 @@ public class PlayerMovement : MonoBehaviour
         else {
             audioSrc.Stop();
         }
-        //Player Animations (Sarah)
-        if (change != Vector3.zero)
-        {
-            MoveCharacter();
-            playerAnimator.SetFloat("moveX", change.x);
-            playerAnimator.SetFloat("moveY", change.y);
-        }
+
         //change = Vector3.zero;
         if (isCaught) {
             change.x = 0;
@@ -96,6 +90,11 @@ public class PlayerMovement : MonoBehaviour
             bool isMovingHorizontal = Mathf.Abs(Input.GetAxisRaw("Horizontal")) > 0.5f;
             change.y = Input.GetAxisRaw("Vertical") * Time.deltaTime * speed + moveZ;
             bool isMovingVertical = Mathf.Abs(Input.GetAxisRaw("Vertical")) > 0.5f;
+
+            //Player Animations (Sarah)
+                //MoveCharacter();
+            playerAnimator.SetFloat("moveX", change.x);
+            playerAnimator.SetFloat("moveY", change.y);
 
             if (isMovingVertical && isMovingHorizontal) {
                 if (wasMovingVertical) {
