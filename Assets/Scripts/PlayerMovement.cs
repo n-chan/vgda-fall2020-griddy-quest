@@ -7,6 +7,8 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 change;
     public float speed;
     private Rigidbody2D myRigidbody;
+    //Player Animations (Sarah)
+    private Animator playerAnimator;
 
     //Jump variables
     //private float moveZ = 0;
@@ -36,6 +38,8 @@ public class PlayerMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //Player Animations (Sarah)
+        playerAnimator = GetComponent<Animator>();
         myRigidbody = GetComponent<Rigidbody2D>();
         audioSrc = GetComponent<AudioSource>();
 
@@ -73,7 +77,13 @@ public class PlayerMovement : MonoBehaviour
         else {
             audioSrc.Stop();
         }
-
+        //Player Animations (Sarah)
+        if (change != Vector3.zero)
+        {
+            MoveCharacter();
+            playerAnimator.SetFloat("moveX", change.x);
+            playerAnimator.SetFloat("moveY", change.y);
+        }
         //change = Vector3.zero;
         if (isCaught) {
             change.x = 0;
