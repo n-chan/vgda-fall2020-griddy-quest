@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class PatrolLog : Log
+public class PatrolEnemy : Enemy
 {
     public Transform[] path;
     public int currentPoint;

@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class Selection : MonoBehaviour
+public class CharacterSelection : MonoBehaviour
 {
     public SpriteValue storedPlayerPortrait;
     public SpriteValue storedPlayerSprite;

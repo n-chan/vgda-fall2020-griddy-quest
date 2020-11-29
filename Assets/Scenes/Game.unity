@@ -12333,7 +12333,7 @@ GameObject:
   - component: {fileID: 256611247}
   - component: {fileID: 256611246}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: UIButtons
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12975,7 +12975,7 @@ PrefabInstance:
     - target: {fileID: 1846357770983914627, guid: 26feac241ca98364c8d57d8484c002dc,
         type: 3}
       propertyPath: m_Name
-      value: PlayerManager
+      value: GameplayManager
       objectReference: {fileID: 0}
     - target: {fileID: 1846357770983914637, guid: 26feac241ca98364c8d57d8484c002dc,
         type: 3}

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class HealthManager : MonoBehaviour
+public class GameplayManager : MonoBehaviour
 {
     public Text healthText;
     private float health;
