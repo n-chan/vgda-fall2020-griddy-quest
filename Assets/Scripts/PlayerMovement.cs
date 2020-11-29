@@ -62,6 +62,9 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //Animations for moving  and idle, check method below
+        UpdateAnimationAndMove();
+
         //This is for footstep sounds...
         if (change.x != 0 || change.y != 0) {
             isMoving = true;
@@ -90,11 +93,6 @@ public class PlayerMovement : MonoBehaviour
             bool isMovingHorizontal = Mathf.Abs(Input.GetAxisRaw("Horizontal")) > 0.5f;
             change.y = Input.GetAxisRaw("Vertical") * Time.deltaTime * speed + moveZ;
             bool isMovingVertical = Mathf.Abs(Input.GetAxisRaw("Vertical")) > 0.5f;
-
-            //Player Animations (Sarah)
-                //MoveCharacter();
-            playerAnimator.SetFloat("moveX", change.x);
-            playerAnimator.SetFloat("moveY", change.y);
 
             if (isMovingVertical && isMovingHorizontal) {
                 if (wasMovingVertical) {
@@ -147,6 +145,26 @@ public class PlayerMovement : MonoBehaviour
             timeInJump += Time.deltaTime;
         }
     }
+    /**
+     * UpdateAnimationAndMove is meant to take care of animations like idle, moving
+     */
+    void UpdateAnimationAndMove()
+    {
+        //When moving
+        if (change != Vector3.zero)
+        {
+            //Player Animations (Sarah)
+            //MoveCharacter();
+            playerAnimator.SetFloat("moveX", change.x);
+            playerAnimator.SetFloat("moveY", change.y);
+            playerAnimator.SetBool("moving", true);
+        }
+        else
+        {
+            //Walking animation stops
+            playerAnimator.SetBool("moving", false);
+        }
+    }
 
     void Jump ()
     {
@@ -156,7 +174,6 @@ public class PlayerMovement : MonoBehaviour
         change.z = moveZ;
         GetComponent<Collider2D>().enabled = false;
     }
-    
 
     void FixedUpdate() {
         myRigidbody.MovePosition(transform.position + change.normalized * speed * Time.deltaTime);
