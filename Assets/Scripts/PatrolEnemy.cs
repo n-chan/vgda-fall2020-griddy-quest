@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.SceneManagement;
+﻿using UnityEngine;
 
 public class PatrolEnemy : Enemy
 {
@@ -14,7 +11,6 @@ public class PatrolEnemy : Enemy
 
     public void Start() {
         isDead = storedDead.RuntimeValue;
-        Debug.Log("isDead? " + isDead);
         if (isDead) {
             gameObject.SetActive(false);
         }

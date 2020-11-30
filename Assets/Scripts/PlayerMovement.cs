@@ -46,6 +46,8 @@ public class PlayerMovement : MonoBehaviour
         isCaught = false;
         if (GetComponent<SpriteRenderer>().sprite != characterSprite.RuntimeValue) {
             GetComponent<SpriteRenderer>().sprite = characterSprite.RuntimeValue;
+            //temp fix to allow for switching char
+            playerAnimator.enabled = false;
         }
         else {
             GetComponent<SpriteRenderer>().sprite = characterSprite.initialValue;

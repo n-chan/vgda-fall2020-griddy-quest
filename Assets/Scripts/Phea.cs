@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Phea : Interactable
@@ -9,7 +8,6 @@ public class Phea : Interactable
     // Start is called before the first frame update
     void Start()
     {
-        Debug.Log(storedUnlockedPhea.RuntimeValue);
         if (storedUnlockedPhea.RuntimeValue) {
             gameObject.SetActive(false);
         }

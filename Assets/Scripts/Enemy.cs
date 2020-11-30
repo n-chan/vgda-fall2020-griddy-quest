@@ -11,7 +11,6 @@ public class Enemy : MonoBehaviour
     public Transform target;
     public float chaseRadius;
     public float attackRadius;
-    public Transform homePosition;
 
     public Dialogue dialogue;
     public bool isDead;
@@ -24,9 +23,7 @@ public class Enemy : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //myRigidbody = GetComponent<Rigidbody2D>();
         target = GameObject.FindWithTag("Player").transform;
-        Debug.Log(target);
 
         isDead = storedDead.RuntimeValue;
         if (isDead) {

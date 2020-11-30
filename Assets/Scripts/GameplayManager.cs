@@ -18,7 +18,6 @@ public class GameplayManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Debug.Log(storedCharacterHealth.RuntimeValue);
         if (healthText!= null) {
             healthText.text = "Moves Remaining:\n" + storedCharacterHealth.RuntimeValue.ToString();
             health = storedCharacterHealth.RuntimeValue;
