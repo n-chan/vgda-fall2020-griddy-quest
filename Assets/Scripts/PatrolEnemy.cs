@@ -20,7 +20,7 @@ public class PatrolEnemy : Enemy
         Vector3 direction = path[currentPoint].position - transform.position;
         direction.Normalize();
 
-        float distance = 2.5f;
+        float distance = 4.5f;
         
 
         RaycastHit2D[] hits = Physics2D.RaycastAll(start, direction, distance);
@@ -58,7 +58,7 @@ public class PatrolEnemy : Enemy
                     isDead = true;
                     storedDead.RuntimeValue = isDead;
                     storedEnemyPortrait.RuntimeValue = enemyPortrait;
-                    storedEnemyHealth.RuntimeValue = 20;
+                    storedEnemyHealth.RuntimeValue = enemyHealth;
                     FindObjectOfType<DialogueManager>().StartDialogue(dialogue, true);
                     dialogueStarted = true;
                 }

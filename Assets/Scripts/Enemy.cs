@@ -20,6 +20,8 @@ public class Enemy : MonoBehaviour
     public FloatValue storedEnemyHealth;
     public bool dialogueStarted = false;
 
+    public float enemyHealth;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -40,7 +42,7 @@ public class Enemy : MonoBehaviour
     public virtual void CheckDistance() {
         if (Vector3.Distance(target.position, transform.position) <= chaseRadius && Vector3.Distance(target.position, transform.position) > attackRadius) {
             transform.position = Vector3.MoveTowards(transform.position, target.position, moveSpeed * Time.deltaTime);
-            player.isCaught = true;
+            
         }
 
         if (Vector3.Distance(target.position, transform.position) < attackRadius) {
@@ -48,10 +50,13 @@ public class Enemy : MonoBehaviour
                 return;
             }
             else {
+                if (Vector3.Distance(target.position, transform.position) <= attackRadius) {
+                    player.isCaught = true;
+                }
                 isDead = true;
                 storedDead.RuntimeValue = isDead;
                 storedEnemyPortrait.RuntimeValue = enemyPortrait;
-                storedEnemyHealth.RuntimeValue = 30;
+                storedEnemyHealth.RuntimeValue = enemyHealth;
                 FindObjectOfType<DialogueManager>().StartDialogue(dialogue, true);
                 dialogueStarted = true;
             }
