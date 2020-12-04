@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    public string enemyName;
     public float moveSpeed;
     public PlayerMovement player;
     public Transform target;
