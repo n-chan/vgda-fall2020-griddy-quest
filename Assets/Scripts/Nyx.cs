@@ -14,7 +14,9 @@ public class Nyx : Interactable
     // Start is called before the first frame update
     void Start()
     {
-        
+        if (storedDead.RuntimeValue) {
+            gameObject.SetActive(false);
+        }
     }
 
     // Update is called once per frame

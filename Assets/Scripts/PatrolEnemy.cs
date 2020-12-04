@@ -20,7 +20,7 @@ public class PatrolEnemy : Enemy
         Vector3 direction = path[currentPoint].position - transform.position;
         direction.Normalize();
 
-        float distance = 4.5f;
+        float distance = 6.5f;
         
 
         RaycastHit2D[] hits = Physics2D.RaycastAll(start, direction, distance);
@@ -63,7 +63,6 @@ public class PatrolEnemy : Enemy
                     dialogueStarted = true;
                 }
                 
-                Debug.Log("Done");
             }
         }
         else {

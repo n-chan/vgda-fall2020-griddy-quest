@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     private Vector3 change;
-    public float speed;
+    private float speed;
     private Rigidbody2D myRigidbody;
     //Player Animations (Sarah)
     private Animator playerAnimator;
@@ -64,6 +64,13 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        bool isShiftKeyDown = Input.GetKey(KeyCode.LeftShift);
+        if (isShiftKeyDown) {
+            speed = 14f;
+        }
+        else {
+            speed = 8f;
+        }
         //Animations for moving  and idle, check method below
         UpdateAnimationAndMove();
 
