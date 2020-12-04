@@ -5,7 +5,6 @@ using UnityEngine.SceneManagement;
 
 public class GridTwo : MonoBehaviour
 {
-    public int count;
     public bool isClearing = false;
     private bool gameOver = false;
     public FloatValue storedCharacterNum;
@@ -78,6 +77,9 @@ public class GridTwo : MonoBehaviour
         return pieces[x, y];
     }
 
+    /// <summary>
+    /// Fills the board with tiles.
+    /// </summary>
     public IEnumerator Fill() {
         isClearing = true;
         bool needsRefill = true;
@@ -90,6 +92,8 @@ public class GridTwo : MonoBehaviour
             }
 
             int randNum = Random.Range(1, 5);
+
+            //Depending on random number, spawns an row clear or column clear tile randomly on the grid.
             if (storedCharacterNum.RuntimeValue == 0 && randNum == 1) {
                 int spawnAtX = Random.Range(0, 8);
                 int spawnAtY = Random.Range(0, 8);
@@ -145,6 +149,8 @@ public class GridTwo : MonoBehaviour
                 pieces[x, 0] = newPiece.GetComponent<GamePiece>();
                 pieces[x, 0].Init(x, -1, this, PieceType.NORMAL);
                 pieces[x, 0].GetMoveableComponent().Move(x, 0, fillTime);
+                
+                //The following makes sure there is no match in the initial board.
                 do {
                     pieces[x, 0].GetFruitComponent().SetFruit((FruitPiece.FruitType)Random.Range(0, pieces[x, 0].GetFruitComponent().GetNumFruits()));
 
@@ -175,13 +181,6 @@ public class GridTwo : MonoBehaviour
             pieces[piece2.GetX(), piece2.GetY()] = piece1;
 
             if (CheckIfMatchesExist()) {
-                //isClearing = true;
-                count += 1;
-                /*
-                if (count == 3) {
-                    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
-                }
-                */
                 int piece1X = piece1.GetX();
                 int piece1Y = piece1.GetY();
 
@@ -219,7 +218,10 @@ public class GridTwo : MonoBehaviour
         }   
     }
 
-    
+    /// <summary>
+    /// Checks for any matches in the grid by comparing adjacent tiles with one another.
+    /// Once one is found, return true. If there are none, return false.
+    /// </summary>
     public bool CheckIfMatchesExist() {
         for (int y = 0; y < yDimension; y++) {
             for (int x = 0; x < xDimension; x++) {
@@ -237,6 +239,10 @@ public class GridTwo : MonoBehaviour
         return false;
     }
 
+    /// <summary>
+    /// Finds any matches in the grid by comparing adjacent tiles with one another.
+    /// Stores them all in a list, that is then returned.
+    /// </summary>
     public List<GamePiece> FindMatchThrees() {
         List<GamePiece> piecesToRemove = new List<GamePiece>();
 
@@ -260,10 +266,16 @@ public class GridTwo : MonoBehaviour
         }
         return piecesToRemove;
     }
-    
+
+    /// <summary>
+    /// Clears any matches on the board.
+    /// </summary>
     public bool ClearAllValidMatches() {
         bool needsRefill = false;
+        //Calls to FindMatchThrees to check if there are still any matches. Stores them in a list.
         List<GamePiece> match = FindMatchThrees();
+
+        //Call to ClearPiece to clear the pieces stored in list, match.
         if (match != null) {
             for (int i = 0; i < match.Count; i++) {
                 if (ClearPiece(match[i].GetX(), match[i].GetY())) {
@@ -284,12 +296,20 @@ public class GridTwo : MonoBehaviour
         return false;
     }
 
+    /// <summary>
+    /// Clears a whole row of tiles on the board.
+    /// </summary>
+    /// <param name="row">The row to be cleared</param>
     public void ClearRow(int row) {
         for (int x = 0; x < xDimension; x++) {
             ClearPiece(x, row);
         }
     }
 
+    /// <summary>
+    /// Clears a whole column of tiles on the board.
+    /// </summary>
+    /// <param name="col">The column to be cleared</param>
     public void ClearColumn(int col) {
         for (int y = 0; y < yDimension; y++) {
             ClearPiece(col, y);

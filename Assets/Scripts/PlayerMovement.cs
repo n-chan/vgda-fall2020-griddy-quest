@@ -11,11 +11,8 @@ public class PlayerMovement : MonoBehaviour
     private Animator playerAnimator;
 
     //Jump variables
-    //private float moveZ = 0;
     private bool Jumped = false;
-    private bool walkingHorizontallyBeforeJump = false;
     private float changeX;
-    private float leftOrRight;//if left neg if right pos
     private float timeInJump = 0f;
     private float maxJumpTime = 1.5f;//to chang how high or long person jumps chang this value and x or y
     private float horizontalJump = 25;
@@ -26,14 +23,9 @@ public class PlayerMovement : MonoBehaviour
     public VectorValue startingPosition;
     public SpriteValue characterSprite;
     public FloatValue characterNum;
-
     private bool wasMovingVertical;
-
     bool isMoving = false;
-
     public AudioSource audioSrc;
-
-    //public FloatValue currentHealth;
 
     // Start is called before the first frame update
     void Start()
@@ -123,7 +115,6 @@ public class PlayerMovement : MonoBehaviour
                 Jump();
                 if ( change.x != 0)//if player was moving before jump
                 {
-                walkingHorizontallyBeforeJump = true;
                 if ( change.x > 0 )//player moving to right before jump
                 {
                     changeX = horizontalJump;
@@ -132,10 +123,6 @@ public class PlayerMovement : MonoBehaviour
                 {
                     changeX = -horizontalJump;
                 }
-            }
-            else //player not moving before jump
-            {
-                walkingHorizontallyBeforeJump = false;
             }
             }
             else if (Jumped == true && timeInJump > maxJumpTime) {
@@ -175,6 +162,9 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Makes it so the character jumps.
+    /// </summary>
     void Jump ()
     {
         timeInJump = 0f;
@@ -189,6 +179,9 @@ public class PlayerMovement : MonoBehaviour
         startingPosition.RuntimeValue = transform.position;
     }
 
+    /// <summary>
+    /// Resets the player's position back to default (in town).
+    /// </summary>
     public void ResetPosition() {
         transform.position = startingPosition.initialValue;
     }

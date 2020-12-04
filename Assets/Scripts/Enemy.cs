@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    //private Rigidbody2D myRigidbody;
     public string enemyName;
     public float moveSpeed;
     public PlayerMovement player;
@@ -42,7 +41,6 @@ public class Enemy : MonoBehaviour
     public virtual void CheckDistance() {
         if (Vector3.Distance(target.position, transform.position) <= chaseRadius && Vector3.Distance(target.position, transform.position) > attackRadius) {
             transform.position = Vector3.MoveTowards(transform.position, target.position, moveSpeed * Time.deltaTime);
-            
         }
 
         if (Vector3.Distance(target.position, transform.position) < attackRadius) {
