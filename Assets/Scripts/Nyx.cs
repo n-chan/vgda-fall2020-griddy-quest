@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 using UnityEngine;
 
 public class Nyx : Interactable
@@ -16,6 +17,7 @@ public class Nyx : Interactable
     {
         if (storedDead.RuntimeValue) {
             gameObject.SetActive(false);
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         }
     }
 
