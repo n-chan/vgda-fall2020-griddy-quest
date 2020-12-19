@@ -47,13 +47,11 @@ public class Level : MonoBehaviour
         
     }
     public void GameWin() {
-        Debug.Log("You win!");
         grid.GameOver();
         StartCoroutine(DisplayOutcome("VICTORY!"));
         
     }
     public virtual void GameLose() {
-        Debug.Log("You lose.");
         StartCoroutine(DisplayOutcome("DEFEAT!"));
         grid.GameOver();
     }
@@ -92,7 +90,5 @@ public class Level : MonoBehaviour
     public void OnPieceCleared(GamePiece piece) {
         currentScore += piece.score;
         currentScoreText.text = "Tiles Collected:\n" + currentScore.ToString();
-        Debug.Log("Score: " + currentScore);
-
     }
 }

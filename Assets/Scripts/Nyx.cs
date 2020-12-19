@@ -17,7 +17,7 @@ public class Nyx : Interactable
     {
         if (storedDead.RuntimeValue) {
             gameObject.SetActive(false);
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 2);
         }
     }
 

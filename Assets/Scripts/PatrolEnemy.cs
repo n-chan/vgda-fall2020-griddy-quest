@@ -2,18 +2,26 @@
 
 public class PatrolEnemy : Enemy
 {
+    public PlayerMovement player;
+    private Transform target;
+
     public Transform[] path;
     public int currentPoint;
     public Transform currentGoal;
     public float roundingDistance;
 
-    private bool caughtPlayer = false;
+    private bool caughtPlayer;
 
     public void Start() {
-        isDead = storedDead.RuntimeValue;
-        if (isDead) {
+        target = GameObject.FindWithTag("Player").transform;
+        caughtPlayer = false;
+        if (storedDead.RuntimeValue) {
             gameObject.SetActive(false);
         }
+    }
+
+    public void Update() {
+        CheckDistance();
     }
 
     public override void CheckDistance() {
@@ -37,7 +45,7 @@ public class PatrolEnemy : Enemy
         }
 
         //Draw ray in editor to see in scene editor
-        if (player.isCaught) {
+        if (caughtPlayer) {
             Debug.DrawLine(start, start + (direction * distance), Color.green, 2.5f, false);
             
         }
@@ -57,8 +65,7 @@ public class PatrolEnemy : Enemy
                     return;
                 }
                 else {
-                    isDead = true;
-                    storedDead.RuntimeValue = isDead;
+                    storedDead.RuntimeValue = true;
                     storedEnemyPortrait.RuntimeValue = enemyPortrait;
                     storedEnemyHealth.RuntimeValue = enemyHealth;
                     FindObjectOfType<DialogueManager>().StartDialogue(dialogue, true);
