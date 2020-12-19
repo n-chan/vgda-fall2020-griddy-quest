@@ -150,7 +150,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75be80bc7d62e3d419d0ae8c6543e35e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  count: 0
   isClearing: 0
   storedCharacterNum: {fileID: 11400000, guid: bf289429ddfd5bf4793cd57f824f6247, type: 2}
   piecePrefabs:
@@ -521,12 +520,12 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 100
+    m_Font: {fileID: 12800000, guid: 585188cdc4600544eb408bee749e4b3a, type: 3}
+    m_FontSize: 125
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 0
-    m_MaxSize: 100
+    m_MaxSize: 125
     m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
@@ -821,7 +820,7 @@ PrefabInstance:
     - target: {fileID: 2620594871495416433, guid: 2aeebbf080d1748468fba2ebf8510090,
         type: 3}
       propertyPath: m_FontData.m_FontSize
-      value: 35
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 2620594871495416433, guid: 2aeebbf080d1748468fba2ebf8510090,
         type: 3}
@@ -843,20 +842,31 @@ PrefabInstance:
       propertyPath: m_FontData.m_Alignment
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2620594871495416433, guid: 2aeebbf080d1748468fba2ebf8510090,
+        type: 3}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 12800000, guid: 585188cdc4600544eb408bee749e4b3a,
+        type: 3}
     - target: {fileID: 2620594871495416434, guid: 2aeebbf080d1748468fba2ebf8510090,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -258.8
+      value: -144
       objectReference: {fileID: 0}
     - target: {fileID: 2620594871495416434, guid: 2aeebbf080d1748468fba2ebf8510090,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -717
+      value: -713.3
       objectReference: {fileID: 0}
     - target: {fileID: 2620594871495416434, guid: 2aeebbf080d1748468fba2ebf8510090,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 90.602295
+      value: 137.77364
+      objectReference: {fileID: 0}
+    - target: {fileID: 2620594871495416434, guid: 2aeebbf080d1748468fba2ebf8510090,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 400.47418
       objectReference: {fileID: 0}
     - target: {fileID: 2620594871495416435, guid: 2aeebbf080d1748468fba2ebf8510090,
         type: 3}
@@ -1000,8 +1010,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -717.36, y: -455.2}
-  m_SizeDelta: {x: 305.28653, y: 88.434006}
+  m_AnchoredPosition: {x: -710.5, y: -444}
+  m_SizeDelta: {x: 325, y: 123.6222}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1597195181
 MonoBehaviour:
@@ -1023,12 +1033,12 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 35
+    m_Font: {fileID: 12800000, guid: 585188cdc4600544eb408bee749e4b3a, type: 3}
+    m_FontSize: 45
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 3
-    m_MaxSize: 40
+    m_MinSize: 0
+    m_MaxSize: 50
     m_Alignment: 1
     m_AlignByGeometry: 0
     m_RichText: 1
@@ -1078,8 +1088,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -718, y: -354}
-  m_SizeDelta: {x: 304.5697, y: 86.277466}
+  m_AnchoredPosition: {x: -710.5, y: -302}
+  m_SizeDelta: {x: 325, y: 123.6222}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1809399519
 MonoBehaviour:
@@ -1101,12 +1111,12 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 35
+    m_Font: {fileID: 12800000, guid: 585188cdc4600544eb408bee749e4b3a, type: 3}
+    m_FontSize: 45
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 2
-    m_MaxSize: 40
+    m_MaxSize: 50
     m_Alignment: 1
     m_AlignByGeometry: 0
     m_RichText: 1
