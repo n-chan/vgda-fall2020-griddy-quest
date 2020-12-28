@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Node
+public class Node : IHeapItem<Node>
 {
     public bool walkable;
     public Vector2 worldPosition;
@@ -15,6 +15,8 @@ public class Node
     public int gridY;
 
     public Node parent;
+
+    int heapIndex;
 
     public Node(bool w, int gx, int gy) {
         walkable = w;
@@ -33,5 +35,21 @@ public class Node
         return gridY;
     }
 
+    public int HeapIndex {
+        get {
+            return heapIndex;
+        }
+        set {
+            heapIndex = value;
+        }
+    }
+    public int CompareTo(Node nodeToCompare) {
+
+        int compare = fCost.CompareTo(nodeToCompare.fCost);
+        if (compare == 0) {
+            compare = hCost.CompareTo(nodeToCompare.hCost);
+        }
+        return -compare;
+    }
     
 }

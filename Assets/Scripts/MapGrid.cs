@@ -6,27 +6,31 @@ using UnityEngine.Tilemaps;
 public class MapGrid : MonoBehaviour
 {
     public Tilemap tilemap;
+    public Tilemap groundMap;
     public Transform start;
     public Transform target;
     public List<GameObject> paths;
     bool foundPath = false;
+    bool completedPath = false;
     int index = 0;
+    Vector3 tempLoc;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        tempLoc = target.position;
+        /*
         foreach (var position in tilemap.cellBounds.allPositionsWithin) {
             if (tilemap.HasTile(position)) {
                 Debug.Log("TILE: " + position);
             }
         }
+        */
         
         //Debug.Log(tilemap.HasTile(new Vector3Int(148, -42, 0)));
         
         RunAlgo();
     }
-
 
     public void RunAlgo() {
         Node startNode = new Node(true, (int)start.position.x, (int)start.position.y);
@@ -38,7 +42,7 @@ public class MapGrid : MonoBehaviour
         startNode.fCost = 0;
 
         //Initialize the open list.
-        List<Node> openSet = new List<Node>();
+        MinHeap<Node> openSet = new MinHeap<Node>(1000);
 
         //Initialize the closed list.
         HashSet<Node> closedSet = new HashSet<Node>();
@@ -49,14 +53,20 @@ public class MapGrid : MonoBehaviour
         //While open list is not empty
         while (openSet.Count > 0) {
             //Find the node with the least f
+            /*
             Node currentNode = openSet[0];
+            
             for (int i = 1; i < openSet.Count; i++) {
                 if (openSet[i].getFCost() < currentNode.getFCost()) {
                     currentNode = openSet[i];
                 }
             }
-            //Pop the node with the least f from the open list
+
+          //Pop the node with the least f from the open list
             openSet.Remove(currentNode);
+            */
+
+            Node currentNode = openSet.RemoveFirst();
 
             //Generate successors.
             foreach (Node neighbor in GetNeighbors(currentNode)) {
@@ -81,7 +91,6 @@ public class MapGrid : MonoBehaviour
                     //Debug.Log("My end node is: " + targetNode.getGridX() + " " + targetNode.getGridY());
                     //Debug.Log("My end node's parent is: " + targetNode.parent.getGridX() + " " + targetNode.parent.getGridY());
                     StartCoroutine(GoTo(RetracePath(startNode, targetNode)));
-                    Debug.Log("DONE");
                     return;
                 }
 
@@ -91,13 +100,8 @@ public class MapGrid : MonoBehaviour
 
                 bool skip = false;
 
-                foreach (Node n in openSet) {
-                    if (n.getGridX() == neighbor.getGridX()
-                        && n.getGridY() == neighbor.getGridY()
-                        && n.fCost < neighbor.fCost) {
-                        skip = true;
-                        break;
-                    }
+                if (openSet.Contains(neighbor)) {
+                    skip = true;
                 }
 
                 foreach (Node n in closedSet) {
@@ -140,7 +144,6 @@ public class MapGrid : MonoBehaviour
         //Debug.Log("A:" + endNode.parent.getGridX() + " " + endNode.parent.getGridY());
 
         while (currentNode != startNode) {
-            Debug.Log("PATH: " + currentNode.getGridX() + " " + currentNode.getGridY() + "Is walkable: " + currentNode.walkable);
             path.Add(currentNode);
             currentNode = currentNode.parent;
         }
@@ -158,12 +161,12 @@ public class MapGrid : MonoBehaviour
                 }
                 int checkX = node.gridX + x;
                 int checkY = node.gridY + y;
-                Debug.Log(checkX + " " + checkY + "!!!Is walkable: " + !tilemap.HasTile(new Vector3Int(checkX, checkY, 0)));
-                //Debug.Log(tile);
-                
 
-                Node newNode = new Node(!tilemap.HasTile(new Vector3Int(checkX, checkY, 0)), checkX, checkY);
-                neighbors.Add(newNode);
+                if (checkX >= -24 && checkX <= 17 && checkY >= -5 && checkY <= 16) {
+                    Node newNode = new Node(!tilemap.HasTile(new Vector3Int(checkX, checkY, 0)), checkX, checkY);
+                    neighbors.Add(newNode);
+                }
+                
             }
         }
         return neighbors;
@@ -184,30 +187,27 @@ public class MapGrid : MonoBehaviour
     void Update()
     {
         //If path is found, then start moving towards the newly created waypoints.
-        if (foundPath && (index < paths.Count)) {
-            if ((Vector3.Distance(start.position, paths[index].transform.position)) > 0.5f) {
+        if (!completedPath && foundPath && (index < paths.Count)) {
+            if ((Vector3.Distance(start.position, paths[index].transform.position)) > 0.1f) {
                 start.position = Vector3.MoveTowards(start.position, paths[index].transform.position, 5f * Time.deltaTime);
             }
             else {
                 index += 1;
             }
+            if (Vector3.Distance(start.position, target.position) < 2f || index + 1 == paths.Count) {
+                completedPath = true;
+                for (int i = 0; i < paths.Count; i++) {
+                    Destroy(paths[i]);
+                }
+                paths.Clear();
+                foundPath = false;
+                index = 0;
+                tempLoc = target.position;
+            }
+        }
+        else if (completedPath && tempLoc != target.position) {
+            completedPath = false;
+            RunAlgo();
         }
     }
 }
-
-/*
- *                 if (!neighbor.walkable || closedSet.Contains(neighbor)) {
-                    continue;
-                }
-
-                int newMovementCostToNeighbor = currentNode.gCost + getDistance(currentNode, neighbor);
-                if (newMovementCostToNeighbor < neighbor.gCost || !openSet.Contains(neighbor)) {
-                    neighbor.gCost = newMovementCostToNeighbor;
-                    neighbor.hCost = getDistance(neighbor, targetNode);
-                    neighbor.parent = currentNode;
-
-                    if (!openSet.Contains(neighbor)) {
-                        openSet.Add(neighbor);
-                    }
-                }
-*/
