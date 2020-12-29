@@ -6,9 +6,11 @@ public class SentryEnemy : Enemy
     private Transform target;
     public float chaseRadius;
     private Vector3 originalPosition;
+    private Animator animator;
 
     void Start() {
         target = GameObject.FindWithTag("Player").transform;
+        animator = GetComponent<Animator>();
         originalPosition = transform.position;
 
         if (storedDead.RuntimeValue) {
@@ -18,6 +20,12 @@ public class SentryEnemy : Enemy
 
     void Update() {
         CheckDistance();
+        if (transform.position == originalPosition) {
+            animator.SetBool("walking", false);
+        }
+        else {
+            animator.SetBool("walking", true);
+        }
     }
 
     public override void CheckDistance() {
