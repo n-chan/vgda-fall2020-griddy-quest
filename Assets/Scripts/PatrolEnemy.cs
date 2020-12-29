@@ -11,9 +11,14 @@ public class PatrolEnemy : Enemy
     public float roundingDistance;
 
     private bool caughtPlayer;
+    private Vector3 prevPos;
+
+    private Animator animator;
 
     public void Start() {
+        animator = GetComponent<Animator>();
         target = GameObject.FindWithTag("Player").transform;
+        prevPos = transform.position;
         caughtPlayer = false;
         if (storedDead.RuntimeValue) {
             gameObject.SetActive(false);
@@ -22,6 +27,11 @@ public class PatrolEnemy : Enemy
 
     public void Update() {
         CheckDistance();
+        Vector3 move = transform.position - prevPos;
+        animator.SetFloat("moveX", move.x);
+        animator.SetFloat("moveY", move.y);
+        animator.SetBool("moving", true);
+        prevPos = transform.position;
     }
 
     public override void CheckDistance() {

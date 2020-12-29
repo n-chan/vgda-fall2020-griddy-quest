@@ -24,7 +24,6 @@ public abstract class Enemy : MonoBehaviour
         if (storedDead.RuntimeValue) {
             gameObject.SetActive(false);
         }
-        
     }
 
     public abstract void CheckDistance();
