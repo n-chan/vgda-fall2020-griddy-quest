@@ -14,7 +14,7 @@ public class TreasureChest : Interactable
     void Start()
     {
         isOpen = storedOpen.RuntimeValue;
-        anim = GameObject.FindWithTag("Player").transform.Find("SparksObject").GetComponent<Animator>();
+        //anim = GameObject.FindWithTag("Player").transform.Find("SparksObject").GetComponent<Animator>();
         if (isOpen) {
             GetComponent<SpriteRenderer>().sprite = openedSprite;
         }

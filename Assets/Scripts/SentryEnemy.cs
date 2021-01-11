@@ -2,14 +2,24 @@
 
 public class SentryEnemy : Enemy
 {
-    public PlayerMovement player;
+    private PlayerMovement player;
     private Transform target;
+    public IntValue characterNum;
+
     public float chaseRadius;
     private Vector3 originalPosition;
     private Animator animator;
 
     void Start() {
-        target = GameObject.FindWithTag("Player").transform;
+        if (characterNum.RuntimeValue == 0) {
+            target = GameObject.FindWithTag("Kwesi").transform;
+            player = target.GetComponent<PlayerMovement>();
+        }
+        else if (characterNum.RuntimeValue == 1) {
+            target = GameObject.FindWithTag("Phea").transform;
+            player = target.GetComponent<PlayerMovement>();
+        }
+
         animator = GetComponent<Animator>();
         originalPosition = transform.position;
 

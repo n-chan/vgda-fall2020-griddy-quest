@@ -217,11 +217,11 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 2016004462}
         m_MethodName: SetCharacterNum
-        m_Mode: 4
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 1
           m_FloatArgument: 1
           m_StringArgument: 
           m_BoolArgument: 0
@@ -359,7 +359,7 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 2016004462}
         m_MethodName: SetCharacterNum
-        m_Mode: 4
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -979,7 +979,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 07c7cb0b38c5198448d694c053d49023, type: 2}
   - {fileID: 11400000, guid: 4f18ba41e4113eb4289a7ff6ed2ee98f, type: 2}
   - {fileID: 11400000, guid: b029dce9366aa8049b59996ab9fc4e00, type: 2}
-  - {fileID: 0}
+  - {fileID: 11400000, guid: bf289429ddfd5bf4793cd57f824f6247, type: 2}
   - {fileID: 11400000, guid: 1a93dc38dfc68624e8a1d73a4aae097c, type: 2}
   - {fileID: 11400000, guid: f79f991474545434884adcbd07f65229, type: 2}
   - {fileID: 11400000, guid: d36c5c7d198d0f649b1d34a9ad5e2c89, type: 2}

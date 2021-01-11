@@ -8,6 +8,8 @@ TagManager:
   - Health
   - Object
   - Enemy
+  - Kwesi
+  - Phea
   layers:
   - Default
   - TransparentFX

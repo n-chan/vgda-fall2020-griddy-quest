@@ -2,7 +2,7 @@
 
 public class PatrolEnemy : Enemy
 {
-    public PlayerMovement player;
+    private PlayerMovement player;
     private Transform target;
 
     public Transform[] path;
@@ -14,10 +14,20 @@ public class PatrolEnemy : Enemy
     private Vector3 prevPos;
 
     private Animator animator;
+    public IntValue characterNum;
 
     public void Start() {
         animator = GetComponent<Animator>();
-        target = GameObject.FindWithTag("Player").transform;
+        if (characterNum.RuntimeValue == 0) {
+            target = GameObject.FindWithTag("Kwesi").transform;
+            player = target.GetComponent<PlayerMovement>();
+        }
+        else if (characterNum.RuntimeValue == 1) {
+            target = GameObject.FindWithTag("Phea").transform;
+            player = target.GetComponent<PlayerMovement>();
+        }
+
+
         prevPos = transform.position;
         caughtPlayer = false;
         if (storedDead.RuntimeValue) {
@@ -48,7 +58,7 @@ public class PatrolEnemy : Enemy
             if (hits[it].collider != null && hits[it].collider.tag == "Object") {
                 break;
             }
-            else if (hits[it].collider != null && hits[it].collider.tag == "Player" && player.moveZ == 0) {
+            else if (hits[it].collider != null && (hits[it].collider.tag == "Kwesi" || hits[it].collider.tag == "Phea") && player.moveZ == 0) {
                 player.isCaught = true;
                 caughtPlayer = true;
             }

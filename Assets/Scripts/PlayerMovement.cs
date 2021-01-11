@@ -22,7 +22,7 @@ public class PlayerMovement : MonoBehaviour
     public float moveZ;
     public VectorValue startingPosition;
     public SpriteValue characterSprite;
-    public FloatValue characterNum;
+    public IntValue characterNum;
     private bool wasMovingVertical;
     bool isMoving = false;
     public AudioSource audioSrc;
@@ -36,6 +36,8 @@ public class PlayerMovement : MonoBehaviour
         audioSrc = GetComponent<AudioSource>();
 
         isCaught = false;
+
+        /*
         if (GetComponent<SpriteRenderer>().sprite != characterSprite.RuntimeValue) {
             GetComponent<SpriteRenderer>().sprite = characterSprite.RuntimeValue;
             //temp fix to allow for switching char
@@ -44,7 +46,7 @@ public class PlayerMovement : MonoBehaviour
         else {
             GetComponent<SpriteRenderer>().sprite = characterSprite.initialValue;
         }
-
+        */
         if ((Vector2) transform.position != startingPosition.RuntimeValue) {
             transform.position = startingPosition.RuntimeValue;
         }

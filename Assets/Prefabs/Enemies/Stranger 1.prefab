@@ -117,6 +117,7 @@ MonoBehaviour:
   currentPoint: 0
   currentGoal: {fileID: 0}
   roundingDistance: 0.1
+  characterNum: {fileID: 11400000, guid: bf289429ddfd5bf4793cd57f824f6247, type: 2}
 --- !u!50 &3055146830503479233
 Rigidbody2D:
   serializedVersion: 4

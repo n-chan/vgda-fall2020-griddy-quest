@@ -7,7 +7,7 @@ public class GridTwo : MonoBehaviour
 {
     public bool isClearing = false;
     private bool gameOver = false;
-    public FloatValue storedCharacterNum;
+    public IntValue storedCharacterNum;
 
     public enum PieceType {
         EMPTY,

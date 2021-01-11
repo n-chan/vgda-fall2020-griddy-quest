@@ -110,7 +110,7 @@ MonoBehaviour:
   storedEnemyHealth: {fileID: 11400000, guid: 81ff35889308d0049b9e17fdf9cfa2f1, type: 2}
   dialogueStarted: 0
   attackRadius: 2
-  player: {fileID: 0}
+  characterNum: {fileID: 11400000, guid: bf289429ddfd5bf4793cd57f824f6247, type: 2}
   chaseRadius: 5
 --- !u!50 &6106462415869383818
 Rigidbody2D:

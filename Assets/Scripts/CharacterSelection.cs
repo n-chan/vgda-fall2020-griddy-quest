@@ -9,7 +9,7 @@ public class CharacterSelection : MonoBehaviour
     public SpriteValue storedPlayerPortrait;
     public SpriteValue storedPlayerSprite;
     public BoolValue unlockedPhea;
-    public FloatValue storedCharacterNum;
+    public IntValue storedCharacterNum;
 
     void Start() {
         GameObject.Find("PheaButton").GetComponent<Button>().interactable = unlockedPhea.RuntimeValue;
@@ -30,7 +30,7 @@ public class CharacterSelection : MonoBehaviour
     /// Stores a number that represents the character that was picked.
     /// </summary>
     /// <param name="i">The number that represents the picked character</param>
-    public void SetCharacterNum(float i) {
+    public void SetCharacterNum(int i) {
         storedCharacterNum.RuntimeValue = i;
     }
 }
