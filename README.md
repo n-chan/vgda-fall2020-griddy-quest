@@ -2,8 +2,16 @@
 
 CSULB VGDA game submission for the Fall 2020 semester. 
 
-Griddy Quest is a 2D tile-matching puzzle game with some RPG elements. Join Kwesi and Phea in exloring their fantasy world where to combat you must duel with puzzle games! Swap to match three or more puzzle tiles in a line to be successful. There are a limited amount of moves per playthrough so choose wisely.
-  
+Griddy Quest is a 2D tile-matching puzzle game with some RPG elements. Join Kwesi and Phea in exploring their fantasy world where to combat you must duel with puzzle games! Swap to match three or more puzzle tiles in a line to be successful. There are a limited amount of moves per playthrough so choose wisely.
+
+## Download
+Clone the repository locally:
+```bash
+git clone https://github.com/n-chan/vgda-fall2020-griddy-quest.git
+```
+
+Download the Build version:  
+
 https://secsulb.itch.io/griddy-quest
 
 ## Team
